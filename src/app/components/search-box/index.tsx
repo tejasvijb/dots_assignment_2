@@ -61,6 +61,9 @@ export default function SearchBox() {
   const { isLoading, error, data } = useDebouncedSearch(searchTerm);
   const { setSelectedTab, visibleTabs, selectedTab } = useTabStore();
 
+
+  console.log(searchResults);
+
   const handleSearchChange = (term: string) => {
     setSearchTerm(term);
   };

@@ -38,6 +38,7 @@ const SearchResults: FC<SearchResultsProps> = ({ results, searchTerm, isLoading 
     );
   }
 
+
   if (results.length === 0) {
     return (
       <div className="text-center py-8 text-gray-500">

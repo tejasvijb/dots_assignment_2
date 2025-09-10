@@ -36,6 +36,9 @@ export function useDebouncedSearch(query: string, delay = 400) {
       setSearchResults(searchResults);
       return searchResults;
     },
+    enabled: debouncedQuery !== '',
+    refetchOnWindowFocus: false,
+    refetchOnMount: true,
   });
 
   // Optionally clear previous data if query is empty and not loading
