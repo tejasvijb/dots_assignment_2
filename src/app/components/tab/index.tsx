@@ -3,6 +3,7 @@ import TabItem from './TabItem';
 import { TabProps, TabType } from '@/app/interfaces/tabStore';
 import { useTabStore } from '@/app/store/tabstore';
 import Popover from '../ui/Popover';
+import TabPopoverContent from './TabPopoverContent';
 
 export default function Tab({ tabs, onChange, endIcon }: TabProps) {
   const { selectedTab, setSelectedTab } = useTabStore();
@@ -59,7 +60,7 @@ export default function Tab({ tabs, onChange, endIcon }: TabProps) {
             onClose={handlePopoverClose}
           >
             {/* Replace below with actual popover content as needed */}
-            <div className="text-sm text-gray-700">Popover content goes here</div>
+            <TabPopoverContent />
           </Popover>
         </div>
       )}

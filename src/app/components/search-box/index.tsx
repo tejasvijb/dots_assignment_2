@@ -5,7 +5,7 @@ import { useSearchStore } from '@/app/store/store';
 import { useDebouncedSearch } from '@/app/hooks/useDebouncedSearch';
 import Tab from '../tab';
 import { useTabStore } from '@/app/store/tabstore';
-import { FileIcon, Users, MessageSquare, ListTodo, Settings } from 'lucide-react';
+import { Users, Settings, Paperclip, MessageCircle, List } from 'lucide-react';
 import { TabData } from '@/app/interfaces/tabStore';
 import { SearchResults } from '@/app/interfaces/searchTypes';
 import { TabType } from '@/app/interfaces/tabStore';
@@ -26,7 +26,7 @@ function getTabs(searchResults: SearchResults | null, visibleTabs: Record<TabTyp
     {
       id: 'file',
       text: 'Files',
-      icon: <FileIcon size={18} />,
+      icon: <Paperclip size={18} />,
       count: searchResults?.count?.file || 0,
     },
     {
@@ -38,13 +38,13 @@ function getTabs(searchResults: SearchResults | null, visibleTabs: Record<TabTyp
     {
       id: 'chat',
       text: 'Chats',
-      icon: <MessageSquare size={18} />,
+      icon: <MessageCircle size={18} />,
       count: searchResults?.count?.chat || 0,
     },
     {
       id: 'list',
       text: 'Lists',
-      icon: <ListTodo size={18} />,
+      icon: <List size={18} />,
       count: searchResults?.count?.list || 0,
     },
   ];
