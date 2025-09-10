@@ -7,11 +7,12 @@ import Tab from '../tab';
 import { useTabStore } from '@/app/store/tabstore';
 import { Users, Settings, Paperclip, MessageCircle, List } from 'lucide-react';
 import { TabData } from '@/app/interfaces/tabStore';
-import { SearchResults } from '@/app/interfaces/searchTypes';
+import { SearchResults as SearchResultsType } from '@/app/interfaces/searchTypes';
 import { TabType } from '@/app/interfaces/tabStore';
+import SearchResults from '../search-results';
 
 
-function getTabs(searchResults: SearchResults | null, visibleTabs: Record<TabType, boolean>): TabData[] {
+function getTabs(searchResults: SearchResultsType | null, visibleTabs: Record<TabType, boolean>): TabData[] {
   const tabDefs: TabData[] = [
     {
       id: 'all',
@@ -56,11 +57,8 @@ function getTabs(searchResults: SearchResults | null, visibleTabs: Record<TabTyp
 
 export default function SearchBox() {
   const { searchTerm, setSearchTerm, clearSearch, searchResults } = useSearchStore();
-  const { isLoading } = useDebouncedSearch(searchTerm);
-  const { setSelectedTab, visibleTabs, setTabVisible } = useTabStore();
-
-
-  console.log(searchTerm)
+  const { isLoading, error, data } = useDebouncedSearch(searchTerm);
+  const { setSelectedTab, visibleTabs, selectedTab } = useTabStore();
 
   const handleSearchChange = (term: string) => {
     setSearchTerm(term);
@@ -75,9 +73,25 @@ export default function SearchBox() {
 
   const tabs = getTabs(searchResults, visibleTabs);
 
+  // Filter results based on selected tab
+  const getFilteredResults = () => {
+    if (!searchResults?.results) return [];
+
+    if (selectedTab === 'all') {
+      return [
+        ...searchResults.results.file,
+        ...searchResults.results.people,
+        ...searchResults.results.chat,
+        ...searchResults.results.list
+      ];
+    }
+
+    return searchResults.results[selectedTab as keyof typeof searchResults.results] || [];
+  };
+
   return (
     <div
-      className="max-w-sm md:max-w-md lg:max-w-lg mx-auto border border-gray-300 shadow-sm rounded-xl bg-white"
+      className="max-w-sm md:max-w-md lg:max-w-lg mx-auto border border-gray-300 shadow-sm rounded-xl bg-white overflow-y-auto"
       role="search"
       aria-label="Search across files, people, chats, and lists"
     >
@@ -91,11 +105,30 @@ export default function SearchBox() {
         />
       </div>
 
-      <Tab
-        tabs={tabs}
-        onChange={handleTabChange}
-        endIcon={<Settings size={20} className="text-gray-500" />}
-      />
+
+
+      {/* Tab and results */}
+      <div>
+        <Tab
+          tabs={tabs}
+          onChange={handleTabChange}
+          endIcon={<Settings size={20} className="text-gray-500" />}
+        />
+        {/* Error state */}
+        {error && (
+          <div className="p-4 text-center text-red-500 border-t border-gray-200">
+            Error loading results: {error instanceof Error ? error.message : 'Unknown error'}
+          </div>
+        )}
+        {/* Search results */}
+        <div className="border-t border-gray-200">
+          <SearchResults
+            results={getFilteredResults()}
+            searchTerm={searchTerm}
+            isLoading={isLoading}
+          />
+        </div>
+      </div>
     </div>
   );
 }

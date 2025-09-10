@@ -5,6 +5,7 @@ import FileResultItem from './file';
 import PeopleResultItem from './people';
 import ChatResultItem from './chat';
 import ListResultItem from './list';
+import Skeleton from './skeleton';
 
 // Union type for all result items
 type SearchResultItem = FileResult | PeopleResult | ChatResult | ListResult;
@@ -18,8 +19,13 @@ interface SearchResultsProps {
 const SearchResults: FC<SearchResultsProps> = ({ results, searchTerm, isLoading }) => {
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+      <div className='space-y-4'>
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+
       </div>
     );
   }
