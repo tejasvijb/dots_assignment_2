@@ -10,6 +10,7 @@ import { TabData } from '@/app/interfaces/tabStore';
 import { SearchResults as SearchResultsType } from '@/app/interfaces/searchTypes';
 import { TabType } from '@/app/interfaces/tabStore';
 import SearchResults from '../search-results';
+import { motion, AnimatePresence } from 'framer-motion';
 
 
 function getTabs(searchResults: SearchResultsType | null, visibleTabs: Record<TabType, boolean>): TabData[] {
@@ -108,27 +109,37 @@ export default function SearchBox() {
 
 
       {/* Tab and results */}
-      {searchTerm && <div>
-        <Tab
-          tabs={tabs}
-          onChange={handleTabChange}
-          endIcon={<Settings size={20} className="text-gray-500" />}
-        />
-        {/* Error state */}
-        {error && (
-          <div className="p-4 text-center text-red-500 border-t border-gray-200">
-            Error loading results: {error instanceof Error ? error.message : 'Unknown error'}
-          </div>
+      <AnimatePresence>
+        {searchTerm && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            style={{ overflow: 'hidden' }}
+          >
+            <Tab
+              tabs={tabs}
+              onChange={handleTabChange}
+              endIcon={<Settings size={20} className="text-gray-500" />}
+            />
+            {/* Error state */}
+            {error && (
+              <div className="p-4 text-center text-red-500 border-t border-gray-200">
+                Error loading results: {error instanceof Error ? error.message : 'Unknown error'}
+              </div>
+            )}
+            {/* Search results */}
+            <div className="border-t border-gray-200">
+              <SearchResults
+                results={getFilteredResults()}
+                searchTerm={searchTerm}
+                isLoading={isLoading}
+              />
+            </div>
+          </motion.div>
         )}
-        {/* Search results */}
-        <div className="border-t border-gray-200">
-          <SearchResults
-            results={getFilteredResults()}
-            searchTerm={searchTerm}
-            isLoading={isLoading}
-          />
-        </div>
-      </div>}
+      </AnimatePresence>
     </div>
   );
 }
