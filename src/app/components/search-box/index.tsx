@@ -108,7 +108,7 @@ export default function SearchBox() {
 
 
       {/* Tab and results */}
-      <div>
+      {searchTerm && <div>
         <Tab
           tabs={tabs}
           onChange={handleTabChange}
@@ -128,7 +128,7 @@ export default function SearchBox() {
             isLoading={isLoading}
           />
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
