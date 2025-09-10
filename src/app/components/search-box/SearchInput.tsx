@@ -61,6 +61,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         className="flex-grow bg-transparent outline-none text-xl font-medium"
         placeholder={placeholder}
         aria-label="Search"
+        value={value}
       />
 
       {/* Right button: Clear or Keyboard shortcut */}

@@ -3,12 +3,64 @@
 import SearchInput from './SearchInput';
 import { useSearchStore } from '@/app/store/store';
 import { useDebouncedSearch } from '@/app/hooks/useDebouncedSearch';
+import Tab from '../tab';
+import { useTabStore } from '@/app/store/tabstore';
+import { FileIcon, Users, MessageSquare, ListTodo, Settings } from 'lucide-react';
+import { TabData } from '@/app/interfaces/tabStore';
+import { SearchResults } from '@/app/interfaces/searchTypes';
+import { TabType } from '@/app/interfaces/tabStore';
+
+
+function getTabs(searchResults: SearchResults | null, visibleTabs: Record<TabType, boolean>): TabData[] {
+  const tabDefs: TabData[] = [
+    {
+      id: 'all',
+      text: 'All',
+      icon: undefined,
+      count:
+        (searchResults?.count?.file || 0) +
+        (searchResults?.count?.people || 0) +
+        (searchResults?.count?.chat || 0) +
+        (searchResults?.count?.list || 0),
+    },
+    {
+      id: 'file',
+      text: 'Files',
+      icon: <FileIcon size={18} />,
+      count: searchResults?.count?.file || 0,
+    },
+    {
+      id: 'people',
+      text: 'People',
+      icon: <Users size={18} />,
+      count: searchResults?.count?.people || 0,
+    },
+    {
+      id: 'chat',
+      text: 'Chats',
+      icon: <MessageSquare size={18} />,
+      count: searchResults?.count?.chat || 0,
+    },
+    {
+      id: 'list',
+      text: 'Lists',
+      icon: <ListTodo size={18} />,
+      count: searchResults?.count?.list || 0,
+    },
+  ];
+  return tabDefs
+    .filter((tab) => visibleTabs[tab.id] !== false)
+    .map((tab) => ({ ...tab, isVisible: visibleTabs[tab.id] !== false }));
+}
 
 
 export default function SearchBox() {
-
   const { searchTerm, setSearchTerm, clearSearch, searchResults } = useSearchStore();
   const { isLoading } = useDebouncedSearch(searchTerm);
+  const { setSelectedTab, visibleTabs, setTabVisible } = useTabStore();
+
+
+  console.log(searchTerm)
 
   const handleSearchChange = (term: string) => {
     setSearchTerm(term);
@@ -17,11 +69,11 @@ export default function SearchBox() {
     clearSearch();
   };
 
-  console.log('Loading:', isLoading);
+  const handleTabChange = (tabId: TabType) => {
+    setSelectedTab?.(tabId);
+  };
 
-  console.log('Search Results:', searchResults);
-
-
+  const tabs = getTabs(searchResults, visibleTabs);
 
   return (
     <div
@@ -38,6 +90,12 @@ export default function SearchBox() {
           placeholder="Search files, people, chats..."
         />
       </div>
+
+      <Tab
+        tabs={tabs}
+        onChange={handleTabChange}
+        endIcon={<Settings size={20} className="text-gray-500" />}
+      />
     </div>
   );
 }

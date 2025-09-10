@@ -1,18 +1,18 @@
 import { create } from 'zustand';
-
-export interface SearchResults {
-  results: Record<string, any[]>;
-  count: Record<string, number>;
-}
-
+import type { SearchResults } from '../interfaces/searchTypes';
 
 const initialSearchResults: SearchResults = {
-  results: {},
+  results: {
+    file: [],
+    people: [],
+    chat: [],
+    list: [],
+  },
   count: {
-    total: 0,
-    files: 0,
+    file: 0,
     people: 0,
-    chats: 0,
+    chat: 0,
+    list: 0,
   },
 };
 
