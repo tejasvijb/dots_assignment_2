@@ -1,6 +1,16 @@
 
 # Dots Assignment 2
 
+
+## Screenshot
+
+### Search UI Example
+
+![Screenshot of the app](public/Screenshot%202025-09-19%20170645.png)
+
+## Demo Video
+
+[Watch Loom Video Walkthrough](https://www.loom.com/share/02b807c6f7b644b4bec1b367f772a93e)
 ## Features
 
 - 🔍 **Unified Search**: Search across files, people, chats, and lists with a single input.
@@ -27,15 +37,6 @@
 - [date-fns](https://date-fns.org/) (date formatting)
 - [Axios](https://axios-http.com/) (API requests)
 
-## Screenshot
-
-### Search UI Example
-
-![Screenshot of the app](public/Screenshot%202025-09-19%20170645.png)
-
-## Demo Video
-
-[Watch Loom Video Walkthrough](https://www.loom.com/share/02b807c6f7b644b4bec1b367f772a93e)
 
 
 ## Getting Started
