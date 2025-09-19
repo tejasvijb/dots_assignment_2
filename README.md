@@ -11,6 +11,10 @@
 ## Demo Video
 
 [Watch Loom Video Walkthrough](https://www.loom.com/share/02b807c6f7b644b4bec1b367f772a93e)
+
+## Deployed App
+
+[dots-assignment-2.vercel.app](https://dots-assignment-2.vercel.app)
 ## Features
 
 - 🔍 **Unified Search**: Search across files, people, chats, and lists with a single input.
