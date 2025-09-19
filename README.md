@@ -1,4 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+# Dots Assignment 2
+
+## Features
+
+- 🔍 **Unified Search**: Search across files, people, chats, and lists with a single input.
+- 🗂️ **Tabbed Results**: Results are organized into tabs (All, Files, People, Chats, Lists) for easy navigation.
+- ⚡ **Debounced Search**: Fast, debounced search with instant feedback and loading skeletons.
+- 🧩 **Dynamic Tabs**: Show/hide result categories using a settings popover.
+- 🎨 **Modern UI**: Responsive, accessible, and visually appealing interface using Tailwind CSS.
+- 🟢 **Active Status**: See real-time status for people results.
+- 📁 **File Metadata**: View file parent directory and last updated time.
+- 💬 **Chat Preview**: See latest message and time for chat results.
+- 📋 **List Info**: View list details and last updated time.
+- 🧪 **Sample Data**: Uses mock/sample data for demonstration.
+
+## Technologies & Libraries Used
+
+- [Next.js 15](https://nextjs.org/) (App Router)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [@tanstack/react-query](https://tanstack.com/query/latest) (data fetching & caching)
+- [Zustand](https://zustand-demo.pmnd.rs/) (state management)
+- [Framer Motion](https://www.framer.com/motion/) (animations)
+- [Lucide React](https://lucide.dev/) (icons)
+- [date-fns](https://date-fns.org/) (date formatting)
+- [Axios](https://axios-http.com/) (API requests)
+
+## Screenshot
+
+### Search UI Example
+
+![Screenshot of the app](public/Screenshot%202025-09-19%20170645.png)
+
+## Demo Video
+
+[Watch Loom Video Walkthrough](https://www.loom.com/share/02b807c6f7b644b4bec1b367f772a93e)
+
 
 ## Getting Started
 
